@@ -45,30 +45,6 @@ class Controller{
         }
     }
 
-    static async addProduct(req, res, next) {
-        try {
-            const {
-                name,
-                price,
-                last_bidder,
-                imageUrl
-            } = req.body;
-
-            let products = await Product.create({
-                name,
-                price,
-                last_bidder,
-                imageUrl
-            });
-
-            res.status(201).json({ message: "New product has been created", products });
-        } catch (error) {
-            console.log(error.message);
-            next(error);
-
-        }
-    }
-
     static async findUserbyId(req, res, next) {
         try {
             const { id } = req.params;
