@@ -46,6 +46,8 @@ io.on('placeBid', (socket) => {
 app.post("/login", authCont.login );
 app.post("/register", authCont.register);
 
+app.get("/user", Controller.showAllUser)
+app.get("/user/:id", Controller.findUserbyId)
 app.get("/products", Controller.showAllProduct);
 app.post("/products/add",  authen, Controller.addProduct)
 
