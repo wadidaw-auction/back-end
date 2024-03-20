@@ -51,7 +51,7 @@ io.on('connection', (socket) => {
             price
         })
         // console.log(updatedData, "<<<<<<<<<<<<<<<< updated data");
-        socket.broadcast.emit("New Bidder", updatedData) //updatedData
+        io.emit("New Bidder", updatedData) //updatedData
     } catch (error) {
         console.log(error);
     }
