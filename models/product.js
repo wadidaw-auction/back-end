@@ -34,10 +34,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull : false,
       validate : {
         notEmpty :{
-          msg : "Name is required"
+          msg : "Price is required"
         },
         notNull :{
-          msg : "Name is required"
+          msg : "Price is required"
         }
       }
     },
@@ -50,6 +50,21 @@ module.exports = (sequelize, DataTypes) => {
         },
         notNull :{
           msg : "Bidder is required"
+        }
+      }
+    },
+    status: {
+      type : DataTypes.STRING
+    },
+    imageUrl: {
+      type : DataTypes.STRING,
+      allowNull : false,
+      validate : {
+        notEmpty :{
+          msg : "ImageUrl is required"
+        },
+        notNull :{
+          msg : "ImageUrl is required"
         }
       }
     }

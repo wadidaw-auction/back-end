@@ -67,6 +67,7 @@ app.get("/user/:id", Controller.findUserbyId)
 app.get("/products", Controller.showAllProduct);
 app.get("/product/:id", Controller.showProductById);
 
+
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
