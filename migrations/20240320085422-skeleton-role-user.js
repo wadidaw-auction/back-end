@@ -16,6 +16,10 @@ module.exports = {
     await queryInterface.addColumn('Products', 'status', {
       type: Sequelize.DataTypes.STRING,
       defaultValue: "available"
+    }),
+    await queryInterface.addColumn('Products', 'imageUrl', {
+      type: Sequelize.DataTypes.STRING,
+      allowNull: false
     })
   },
 
@@ -28,5 +32,6 @@ module.exports = {
      */
     await queryInterface.removeColumn('Users', 'role'),
     await queryInterface.removeColumn('Products', 'status')
+    await queryInterface.removeColumn('Products', 'imageUrl')
   }
 };

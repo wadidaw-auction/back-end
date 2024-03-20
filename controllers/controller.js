@@ -1,5 +1,4 @@
 
-const { Product } = require('../models')
 const { Product, User } = require('../models')
 
 class Controller{
@@ -41,13 +40,15 @@ class Controller{
             const {
                 name,
                 price,
-                last_bidder
+                last_bidder,
+                imageUrl
             } = req.body;
 
             let products = await Product.create({
                 name,
                 price,
-                last_bidder
+                last_bidder,
+                imageUrl
             });
 
             res.status(201).json({ message: "New product has been created", products });
