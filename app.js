@@ -61,10 +61,11 @@ io.on('connection', (socket) => {
 app.post("/login", authCont.login );
 app.post("/register", authCont.register);
 
-app.use(authen)
+
+app.get("/products", Controller.showAllProduct);
 app.get("/user", Controller.showAllUser)
 app.get("/user/:id", Controller.findUserbyId)
-app.get("/products", Controller.showAllProduct);
+// app.use(authen)
 app.get("/product/:id", Controller.showProductById);
 
 
