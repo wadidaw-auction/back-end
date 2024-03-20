@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const { hashPassword } = require('../helpers/byrcrpt')
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -11,55 +12,65 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.hasMany(models.Product)
+      User.hasMany(models.Product, {
+        foreignKey: 'last_bidder'
+      })
     }
   }
-  User.init({
-    name: {
-      type : DataTypes.STRING,
-      allowNull : false,
-      validate : {
-        notEmpty :{
-          msg : "Name is required"
-        },
-        notNull :{
-          msg : "Name is required"
+  User.init(
+    {
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: "Name is required"
+          },
+          notNull: {
+            msg: "Name is required"
+          }
         }
-      }
-    },
-    email: {
-      type : DataTypes.STRING,
-      allowNull : false,
-      unique : {
-        msg : "Email must be unique"
       },
-      validate : {
-        notEmpty :{
-          msg : "Email is required"
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: {
+          msg: "Email must be unique"
         },
-        notNull :{
-          msg : "Email is required"
-        },
-        isEmail : {
-          msg : "Must be Email Format"
+        validate: {
+          notEmpty: {
+            msg: "Email is required"
+          },
+          notNull: {
+            msg: "Email is required"
+          },
+          isEmail: {
+            msg: "Must be Email Format"
+          }
+        }
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: "Password is required"
+          },
+          notNull: {
+            msg: "Password is required"
+          }
         }
       }
     },
-    password: {
-      type : DataTypes.STRING,
-      allowNull : false,
-      validate : {
-        notEmpty :{
-          msg : "Password is required"
-        },
-        notNull :{
-          msg : "Password is required"
-        }
-      }
+    {
+      sequelize,
+      modelName: 'User',
     }
-  }, {
-    sequelize,
-    modelName: 'User',
+  );
+
+  User.beforeCreate((user) => {
+    user.password = hashPassword(user.password);
   });
+
   return User;
 };
