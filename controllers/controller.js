@@ -1,6 +1,25 @@
+
+const { Product } = require('../models')
 const { Product, User } = require('../models')
 
-class Controller {
+class Controller{
+
+    static async placeBid(req,res,next){
+        console.log(param);
+        const {name , price} = param
+
+        try {
+            // const data = await Product.findByPk()
+            await data.update({
+                last_bidder : req.user.id,
+                price
+            })
+        } catch (error) {
+            next(error)
+        }
+    }
+
+
     static async showAllProduct(req, res, next) {
         try {
             const product = await Product.findAll({
@@ -35,6 +54,7 @@ class Controller {
         } catch (error) {
             console.log(error.message);
             next(error);
+
         }
     }
 }
