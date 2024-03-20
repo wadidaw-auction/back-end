@@ -3,21 +3,6 @@ const { Product, User } = require('../models')
 
 class Controller{
 
-    static async placeBid(req,res,next){
-        console.log(param);
-        const {name , price} = param
-
-        try {
-            // const data = await Product.findByPk()
-            await data.update({
-                last_bidder : req.user.id,
-                price
-            })
-        } catch (error) {
-            next(error)
-        }
-    }
-
 
     static async showAllProduct(req, res, next) {
         try {
@@ -28,6 +13,31 @@ class Controller{
                 }
             });
 
+            res.status(200).json(product);
+        } catch (error) {
+            console.log(error);
+            next(error);
+        }
+    }
+
+    static async showProductById(req, res, next) {
+        try {
+            // console.log(req.params);
+            const product = await Product.findOne({
+                where : {
+                    id : req.params.id
+                },
+                attributes: {
+                    exclude: ['createdAt','updatedAt']
+                },
+                include: {
+                    model: User,
+                    attributes: {
+                        exclude: ['password','createdAt','updatedAt']
+                    }
+                }
+            });
+            // console.log(product);
             res.status(200).json(product);
         } catch (error) {
             console.log(error);
