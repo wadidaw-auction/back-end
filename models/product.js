@@ -11,7 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Product.belongsTo(models.User)
+      Product.belongsTo(models.User, {
+        foreignKey: 'last_bidder'
+      })
     }
   }
   Product.init({
