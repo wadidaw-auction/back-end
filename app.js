@@ -12,7 +12,7 @@ const Controller = require('./controllers/controller')
 const { authen } = require('./middlewares/authen')
 
 const { Product } = require('./models')
-const { verifyToken, getUserByToken } = require('./helpers/jwt')
+const { getUserByToken } = require('./helpers/jwt')
 
 app.use(cors())
 app.use(express.urlencoded({extended : true}))
@@ -58,20 +58,14 @@ io.on('connection', (socket) => {
   })
 });
 
-/// user dapat place bid ketika input price > price database
-io.on('placeBid', (socket) => {
-
-})
-
 app.post("/login", authCont.login );
 app.post("/register", authCont.register);
 
+app.use(authen)
 app.get("/user", Controller.showAllUser)
 app.get("/user/:id", Controller.findUserbyId)
 app.get("/products", Controller.showAllProduct);
 app.get("/product/:id", Controller.showProductById);
-app.post("/products/add",  authen, Controller.addProduct)
-
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
