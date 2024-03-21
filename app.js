@@ -33,7 +33,7 @@ io.on('connection', (socket) => {
   socket.emit("message", "Welcome " + socket.id)
 
   socket.on("bidRoom", (roomId) => {
-    console.log(roomId, "<<<<<<<<<<<<<<<<<,");
+    // console.log(roomId, "<<<<<<<<<<<<<<<<<,");
     socket.join(roomId);
   });
 
@@ -54,7 +54,7 @@ io.on('connection', (socket) => {
         })
         // console.log(updatedData, "<<<<<<<<<<<<<<<< updated data");
         // io.emit("New Bidder", updatedData) //updatedData
-        // console.log(roomId,"<<<< roomId");
+        console.log(roomId,updatedData,"<<<< roomId");
         io.to(roomId).emit("New Bidder", updatedData);
         io.emit("New_Bidder_" + roomId, updatedData);
     } catch (error) {
