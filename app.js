@@ -25,7 +25,7 @@ app.use(express.json())
 const httpServer = createServer(app)
 const io = new Server(httpServer,{
   cors : {
-    origin : "https://server-gproject.farreldevara.online"
+    origin : "https://client-gproject.farreldevara.online"
   }
 })
 
