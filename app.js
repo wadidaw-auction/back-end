@@ -54,9 +54,10 @@ io.on('connection', (socket) => {
         })
         // console.log(updatedData, "<<<<<<<<<<<<<<<< updated data");
         // io.emit("New Bidder", updatedData) //updatedData
-        console.log(roomId,updatedData,"<<<< roomId");
+        // console.log(roomId,updatedData,"<<<< roomId");
         io.to(roomId).emit("New Bidder", updatedData);
         io.emit("New_Bidder_" + roomId, updatedData);
+        io.emit("toast", dataUser)
     } catch (error) {
         console.log(error);
     }
