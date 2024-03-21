@@ -32,17 +32,19 @@ io.on('connection', (socket) => {
   
   socket.emit("message", "Welcome " + socket.id)
 
+  socket.on("bidRoom", (roomId) => {
+    console.log(roomId, "<<<<<<<<<<<<<<<<<,");
+    socket.join(roomId);
+  });
+
   socket.on("placeBid", async (param)=>{
      
     // console.log(param);
-    const {token, price,id} = param
+    const {token, price, id, roomId} = param
 
     try {
-        // if (socket.handshake.auth.token) {
 
         let dataUser = await getUserByToken(token)
-        // }
-        // console.log(dataUser.id,"<<<<<<<<, data user");
         
         const product = await Product.findByPk(id)
 
@@ -51,7 +53,10 @@ io.on('connection', (socket) => {
             price
         })
         // console.log(updatedData, "<<<<<<<<<<<<<<<< updated data");
-        io.emit("New Bidder", updatedData) //updatedData
+        // io.emit("New Bidder", updatedData) //updatedData
+        // console.log(roomId,"<<<< roomId");
+        io.to(roomId).emit("New Bidder", updatedData);
+        io.emit("New_Bidder_" + roomId, updatedData);
     } catch (error) {
         console.log(error);
     }
